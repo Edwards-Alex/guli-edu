@@ -1,0 +1,3 @@
+# Project exclude paths
+/guli-framework-common/target/
+/guli-microservice-edu/target/
