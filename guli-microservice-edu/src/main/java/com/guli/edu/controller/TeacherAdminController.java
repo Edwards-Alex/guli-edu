@@ -1,21 +1,20 @@
 package com.guli.edu.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.guili.common.vo.R;
+import com.guli.common.vo.R;
 import com.guli.edu.entity.Teacher;
 import com.guli.edu.query.TeacherQuery;
 import com.guli.edu.service.TeacherService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NavigableMap;
 
 @RestController
 @RequestMapping("/admin/edu/teacher")
@@ -79,4 +78,47 @@ public class TeacherAdminController {
         List<Teacher> records = pageParam.getRecords();
         return  R.ok().data("total",total).data("rows",records);
     }
+
+    //新增讲师
+    @ApiOperation(value = "新增讲师")
+    @PostMapping
+    public R save(
+        @ApiParam(name = "teacher",value = "新增讲师",required = true)
+        @RequestBody
+        Teacher teacher
+    ){
+        teacherService.save(teacher);
+        return R.ok();
+    }
+
+    //根据id查询teacher
+    @ApiOperation(value = "根据id查询teacher")
+    @GetMapping("{id}")
+    public R getById(
+            @ApiParam(name ="id",value = "讲师id",required = true)
+            @PathVariable
+            String id
+    ){
+        Teacher teacher = teacherService.getById(id);
+        return R.ok().data("item",teacher);
+    }
+
+
+
+    //根据id修改讲师信息
+    @ApiOperation(value = "根据id修改讲师信息")
+    @PutMapping("{id}")
+    public R updateById(
+            @ApiParam(name = "id",value ="讲师ID",required = true)
+            @PathVariable
+            String id,
+            @ApiParam(name = "teacher",value = "讲师信息",required = true)
+            @RequestBody
+            Teacher teacher
+    ){
+        teacher.setId(id);
+        teacherService.updateById(teacher);
+        return R.ok();
+    }
+
 }
