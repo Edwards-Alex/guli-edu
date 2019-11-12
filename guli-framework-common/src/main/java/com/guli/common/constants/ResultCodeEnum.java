@@ -1,4 +1,4 @@
-package com.guili.common.constants;
+package com.guli.common.constants;
 
 import lombok.Getter;
 

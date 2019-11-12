@@ -1,6 +1,6 @@
-package com.guili.common.vo;
+package com.guli.common.vo;
 
-import com.guili.common.constants.ResultCodeEnum;
+import com.guli.common.constants.ResultCodeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -74,5 +74,13 @@ public class R {
     public  R data(String  key,Object value){
         this.data.put(key,value);
         return  this;
+    }
+
+    public static R setResult(ResultCodeEnum resultCodeEnum){
+        R r = new R();
+        r.setCode(resultCodeEnum.getCode());
+        r.setSuccess(resultCodeEnum.getSuccess());
+        r.setMessages(resultCodeEnum.getMessage());
+        return r;
     }
 }
